@@ -1,0 +1,29 @@
+{
+  "name": "track-views-google-docs",
+  "version": "0.0.1",
+  "description": "tracks views on google doc files",
+  "main": "app.js",
+  "dependencies": {
+    "puppeteer": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exogenesys/track-views-google-docs.git"
+  },
+  "keywords": [
+    "google",
+    "docs",
+    "views",
+    "track"
+  ],
+  "author": "Harsh Gautam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/exogenesys/track-views-google-docs/issues"
+  },
+  "homepage": "https://github.com/exogenesys/track-views-google-docs#readme"
+}
