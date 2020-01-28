@@ -27,18 +27,19 @@ if (args[0] == undefined) {
     console.log("RUNNING");
 
     async function update() {
-      newViews = await page.evaluate(() => {
-        return document.querySelector(
-          '[class="goog-inline-block goog-flat-menu-button-caption"]'
-        ).textContent;
-      });
+      newViews =
+        (await page.evaluate(() => {
+          return document.querySelector(
+            '[class="goog-inline-block goog-flat-menu-button-caption"]'
+          ).textContent;
+        })) || 0;
 
       if (newViews - lastViews > 0) {
         uniqueViews += newViews - lastViews;
         console.log("NEW VIEW, TOTAL VIEW COUNT: " + uniqueViews);
-      }
 
-      lastViews = newViews;
+        lastViews = newViews;
+      }
     }
 
     async function setupFile() {
@@ -48,7 +49,7 @@ if (args[0] == undefined) {
           "-" +
           new Date().getDate() +
           "-" +
-          new Date().getMonth() +
+          (new Date().getMonth() + 1) +
           ".csv",
         "TIMESTAMP" + ", " + "CURRENT VIEWS" + ", " + "TOTAL VIEWS" + "\n",
         function(err) {
@@ -65,9 +66,14 @@ if (args[0] == undefined) {
           "-" +
           new Date().getDate() +
           "-" +
-          new Date().getMonth() +
+          (new Date().getMonth() + 1) +
           ".csv",
-        new Date().toDateString() + ", " + newViews + ", " + uniqueViews + "\n",
+        new Date().toLocaleTimeString() +
+          ", " +
+          newViews +
+          ", " +
+          uniqueViews +
+          "\n",
         function(err) {
           if (err) throw err;
           console.log("VIEW FILE UPDATED");
@@ -79,11 +85,11 @@ if (args[0] == undefined) {
       update();
     }, 1000);
 
-    setupFile();
+    // setupFile();
 
     setInterval(function() {
       writeViewsToFile();
-    }, 1000 * 60 * 1);
+    }, 1000 * 60 * 5);
   } catch (e) {
     console.log(e);
     await browser.close();
